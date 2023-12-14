@@ -24,6 +24,9 @@ public class MemberRepository {
     public Member findOne(Long memberId){
         return em.find(Member.class, memberId);
     }
+    public Member findByEmail(String email){
+        return em.find(Member.class, email);
+    }
 
     // 전체 멤버 조회
     public List<Member> findAll(){
