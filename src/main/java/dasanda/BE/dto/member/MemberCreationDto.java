@@ -11,7 +11,7 @@ public class MemberCreationDto {
     private String email;
 
     @NotBlank
-    private String name;
+    private String nickname;
 
     @NotBlank
     private String password;
@@ -26,10 +26,10 @@ public class MemberCreationDto {
     private String zipcode;
 
     @Builder
-    protected MemberCreationDto(String email, String name, String password,
+    protected MemberCreationDto(String email, String nickname, String password,
                                 String city, String street, String zipcode){
         this.email = email;
-        this.name = name;
+        this.nickname = nickname;
         this.password = password;
         this.city = city;
         this.street = street;

@@ -1,31 +1,29 @@
-package dasanda.BE.service.member;
+package dasanda.BE.config.auth;
 
 import dasanda.BE.domain.Member;
 import dasanda.BE.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
+// 시큐리티 설정에서 "/login" 요청이 오면 UserDetailsService 타입으로 IOC 되어 있는
+// PrincipalDetailsService 함수가 실행
 @Service
 @RequiredArgsConstructor
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class PrincipalDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
+    // 시큐리티 session(Authentication(UserDetails))
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Member member = memberRepository.findByEmail(username);
-        List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-
-        return new User(member.getEmail(), member.getPassword(), authorities);
+        if (member != null){
+            return new  PrincipalDetails(member);
+        }
+        return null;
     }
 }
