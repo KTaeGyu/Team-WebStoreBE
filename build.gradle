@@ -36,8 +36,11 @@ dependencies {
 	// MySQL 관련
 	implementation 'mysql:mysql-connector-java:8.0.33'
 
-	// 비밀번호 암호화
+	// spring security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	//JWT
+	implementation group: 'com.auth0', name: 'java-jwt', version: '4.4.0'
 
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
