@@ -26,15 +26,19 @@ public class Member {
     @Column(unique = true)
     private String nickname;
 
+    @NotBlank
+    private String phone;
+
     @Embedded
     private Address address;
 
     private String role;
 
     @Builder
-    protected Member(String email, String nickname, String password, String city, String street, String zipcode){
+    protected Member(String email, String nickname, String phone, String password, String city, String street, String zipcode){
         this.email = email;
         this.nickname = nickname;
+        this.phone = phone;
         this.password = password;
         this.address = Address.builder()
                 .city(city)

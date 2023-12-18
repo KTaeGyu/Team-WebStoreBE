@@ -1,4 +1,4 @@
-package dasanda.BE.service.jwt;
+package dasanda.BE.service.auth;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
