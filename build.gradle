@@ -42,6 +42,9 @@ dependencies {
 	//JWT
 	implementation group: 'com.auth0', name: 'java-jwt', version: '4.4.0'
 
+	// SMS 인증
+	implementation 'net.nurigo:sdk:4.3.0'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'

@@ -2,10 +2,12 @@ package dasanda.BE.api.member;
 
 import dasanda.BE.domain.Member;
 import dasanda.BE.dto.member.MemberCreationDto;
+import dasanda.BE.service.auth.SmsService;
 import dasanda.BE.service.member.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Random;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +24,6 @@ public class MemberApiController {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
-
 
     // 회원 저장
     @PostMapping("/api/join")
@@ -33,6 +35,7 @@ public class MemberApiController {
             Member member = Member.builder()
                     .email(memberCreationDto.getEmail())
                     .nickname(memberCreationDto.getNickname())
+                    .phone(memberCreationDto.getPhone())
                     .password(password)
                     .city(memberCreationDto.getCity())
                     .street(memberCreationDto.getStreet())
@@ -44,6 +47,7 @@ public class MemberApiController {
             MemberCreationDto creationDto = MemberCreationDto.builder()
                     .email(saveMember.getEmail())
                     .nickname(saveMember.getNickname())
+                    .phone(memberCreationDto.getPhone())
                     .city(saveMember.getAddress().getCity())
                     .street(saveMember.getAddress().getStreet())
                     .zipcode(saveMember.getAddress().getZipcode())

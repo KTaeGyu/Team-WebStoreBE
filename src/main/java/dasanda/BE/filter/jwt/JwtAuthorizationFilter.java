@@ -1,25 +1,20 @@
 package dasanda.BE.filter.jwt;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dasanda.BE.config.auth.PrincipalDetails;
 import dasanda.BE.domain.Member;
 import dasanda.BE.repository.member.MemberRepository;
-import dasanda.BE.service.jwt.JwtService;
+import dasanda.BE.service.auth.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.io.IOException;
@@ -48,7 +43,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         System.out.println("인증이 필요합니다.");
 
 
-        if (request.getRequestURI().equals("/api/join") || request.getRequestURI().equals("/api/refresh")){
+        if (request.getRequestURI().equals("/api/join")
+                || request.getRequestURI().equals("/api/refresh")
+                || request.getRequestURI().equals("/api/sms/send")
+                || request.getRequestURI().equals("/api/sms/verify")){
             System.out.println("인증 안할래");
             chain.doFilter(request, response);
             return;
