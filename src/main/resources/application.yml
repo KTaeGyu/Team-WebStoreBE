@@ -8,7 +8,7 @@ spring:
   jpa:
     database: mysql
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         default_batch_fetch_size: 100
@@ -17,3 +17,20 @@ spring:
         org:
           hibernate:
             SQL: trace
+
+# JWT
+jwt:
+  token:
+    access:
+      secret: ${ACCESS_SECRET}
+      expiration: 300000 # 5분
+    refresh:
+      secret: ${REFRESH_SECRET}
+      expiration: 604800000 # 7일 (1000L(ms -> s) * 60L(s -> m) * 60L(m -> h) * 24L(h -> d) * 7L(d -> w))
+
+# SMS 인증
+sms:
+  from: ${PHONE_NUM}
+  api:
+    key: ${SMS_KEY}
+    secret: ${SMS_SECRET}

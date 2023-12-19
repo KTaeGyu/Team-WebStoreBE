@@ -21,8 +21,13 @@ public class MemberRepository {
     }
 
     // 단일 멤버 조회
-    public Member findOne(Long memberId){
-        return em.find(Member.class, memberId);
+    public Member findByEmail(String email){
+        return em.createQuery("select m from Member m where m.email = :email", Member.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+    public Member findById(Long id){
+        return em.find(Member.class, id);
     }
 
     // 전체 멤버 조회
