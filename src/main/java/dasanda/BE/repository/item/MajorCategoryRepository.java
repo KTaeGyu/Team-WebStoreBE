@@ -18,4 +18,8 @@ public class MajorCategoryRepository {
                 .getResultList();
     }
 
+    public MajorCategory findOne(Long majorCategoryId){
+        return em.find(MajorCategory.class, majorCategoryId);
+    }
+
 }

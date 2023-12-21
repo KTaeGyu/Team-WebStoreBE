@@ -2,6 +2,8 @@ package dasanda.BE.repository.item;
 
 
 import dasanda.BE.domain.item.Item;
+import dasanda.BE.domain.item.MajorCategory;
+import dasanda.BE.domain.item.SubCategory;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -32,19 +34,16 @@ public class ItemRepository {
     };
 
     // 대분류 카테고리 상품 조회
-    public List<Item> findByCategoryId(List<Long> categoryIdList){
-        if (categoryIdList == null || categoryIdList.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return em.createQuery("select i from Item i where i.categoryId in :categoryIdList", Item.class)
-                .setParameter("categoryIdList", categoryIdList)
+    public List<Item> findByCategoryId(List<SubCategory> subCategoryList){
+        return em.createQuery("select i from Item i where i.category in :subCategoryList", Item.class)
+                .setParameter("subCategoryList", subCategoryList)
                 .getResultList();
     }
 
     // 세부 카테고리 상품 조회
-    public List<Item> findByCategoryId(Long categoryId){
-        return em.createQuery("select i from Item where i.categoryId = :categoryId", Item.class)
-                .setParameter("categoryId", categoryId)
+    public List<Item> findByCategoryId(SubCategory subCategory){
+        return em.createQuery("select i from Item i where i.category = :subCategory", Item.class)
+                .setParameter("subCategory", subCategory)
                 .getResultList();
     }
 

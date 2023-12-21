@@ -1,7 +1,10 @@
 package dasanda.BE.service.item;
 
 import dasanda.BE.domain.item.Item;
+import dasanda.BE.domain.item.MajorCategory;
+import dasanda.BE.domain.item.SubCategory;
 import dasanda.BE.repository.item.ItemRepository;
+import dasanda.BE.repository.item.MajorCategoryRepository;
 import dasanda.BE.repository.item.SubCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import java.util.List;
 public class ItemService {
 
     private final ItemRepository itemRepository;
+    private  final MajorCategoryRepository majorCategoryRepository;
     private final SubCategoryRepository subCategoryRepository;
 
     // 아이템 추가
@@ -36,13 +40,18 @@ public class ItemService {
 
     // 대분류 카테고리 상품 조회
     public List<Item> findItemByMajorCategoryId(Long categoryId){
-        List<Long> categoryIdList = subCategoryRepository.findByMajorId(categoryId);
-        return itemRepository.findByCategoryId(categoryIdList);
+        MajorCategory majorCategory = majorCategoryRepository.findOne(categoryId);
+
+        List<SubCategory> subCategoryList = subCategoryRepository.findByMajorCategory(majorCategory);
+
+        return itemRepository.findByCategoryId(subCategoryList);
     }
 
     // 세부 카테고리 상품 조회
     public List<Item> findItemBySubCategoryId(Long categoryId){
-        return itemRepository.findByCategoryId(categoryId);
+        SubCategory subCategory = subCategoryRepository.findOne(categoryId);
+
+        return itemRepository.findByCategoryId(subCategory);
     }
 
 }

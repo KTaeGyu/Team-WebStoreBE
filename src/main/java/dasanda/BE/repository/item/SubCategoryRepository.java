@@ -1,5 +1,6 @@
 package dasanda.BE.repository.item;
 
+import dasanda.BE.domain.item.MajorCategory;
 import dasanda.BE.domain.item.SubCategory;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,11 @@ public class SubCategoryRepository {
                 .getResultList();
     }
 
-    public List<Long> findByMajorId(Long categoryId){
-        return em.createQuery("select s.id form SubCategory s where s.majorId = :categoryId;", Long.class)
-                .setParameter("categoryId", categoryId)
+    public SubCategory findOne(Long categoryId){ return em.find(SubCategory.class, categoryId); }
+
+    public List<SubCategory> findByMajorCategory(MajorCategory majorCategory){
+        return em.createQuery("select s from SubCategory s where s.majorCategory = :majorCategory", SubCategory.class)
+                .setParameter("majorCategory", majorCategory)
                 .getResultList();
     }
 
