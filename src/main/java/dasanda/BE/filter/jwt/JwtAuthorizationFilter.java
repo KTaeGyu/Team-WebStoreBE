@@ -42,7 +42,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         System.out.println("인증이 필요합니다.");
 
-
         if (request.getRequestURI().equals("/api/join")
                 || request.getRequestURI().equals("/api/refresh")
                 || request.getRequestURI().equals("/api/sms/send")
