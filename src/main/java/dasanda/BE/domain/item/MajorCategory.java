@@ -1,11 +1,12 @@
 package dasanda.BE.domain.item;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -21,8 +22,14 @@ public class MajorCategory {
     @Column(unique = true)
     private String name;
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "majorCategory")
+    private List<SubCategory> subCategories;
+
     @Builder
-    protected MajorCategory(String name){
+    protected MajorCategory(String name, List<SubCategory> subCategories){
         this.name = name;
+        this.subCategories = subCategories;
+
     }
 }

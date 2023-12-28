@@ -35,14 +35,14 @@ public class ItemRepository {
 
     // 대분류 카테고리 상품 조회
     public List<Item> findByCategoryId(List<SubCategory> subCategoryList){
-        return em.createQuery("select i from Item i where i.category in :subCategoryList", Item.class)
+        return em.createQuery("select i from Item i where i.subCategory in :subCategoryList", Item.class)
                 .setParameter("subCategoryList", subCategoryList)
                 .getResultList();
     }
 
     // 세부 카테고리 상품 조회
     public List<Item> findByCategoryId(SubCategory subCategory){
-        return em.createQuery("select i from Item i where i.category = :subCategory", Item.class)
+        return em.createQuery("select i from Item i where i.subCategory = :subCategory", Item.class)
                 .setParameter("subCategory", subCategory)
                 .getResultList();
     }
