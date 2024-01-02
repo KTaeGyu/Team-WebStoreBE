@@ -39,6 +39,10 @@ public class Item {
     @Column(name = "shipping_date")
     private Integer shippingDate;
 
+    @NotBlank
+    @Column(name = "item_code")
+    private String itemCode;
+
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name="brand_id")

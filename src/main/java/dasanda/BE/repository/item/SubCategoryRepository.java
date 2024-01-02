@@ -15,7 +15,7 @@ public class SubCategoryRepository {
     private final EntityManager em;
 
     public List<SubCategory> findAll(){
-        return em.createQuery("select sc form SubCategory sc", SubCategory.class)
+        return em.createQuery("select sc from SubCategory sc", SubCategory.class)
                 .getResultList();
     }
 

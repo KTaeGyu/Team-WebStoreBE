@@ -22,6 +22,9 @@ public class MajorCategory {
     @Column(unique = true)
     private String name;
 
+    @NotBlank
+    private String engName;
+
     @JsonBackReference
     @OneToMany(mappedBy = "majorCategory")
     private List<SubCategory> subCategories;

@@ -7,6 +7,7 @@ import dasanda.BE.service.item.SubCategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -27,6 +28,12 @@ public class CategoryApiController {
     @GetMapping("/api/categories/sub")
     public ResponseEntity<Object> findSubCategoryList(){
         List<SubCategory> subCategoryList = subCategoryService.findSubCategories();
+        return ResponseEntity.ok().body(subCategoryList);
+    }
+
+    @GetMapping("/api/categories/sub/{majorId}")
+    public ResponseEntity<Object> findSubCategoryListByMajorId(@PathVariable("majorId") Long majorId){
+        List<SubCategory> subCategoryList = subCategoryService.findSubCategoriesByMajorId(majorId);
         return ResponseEntity.ok().body(subCategoryList);
     }
 

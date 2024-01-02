@@ -46,7 +46,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 || request.getRequestURI().equals("/api/refresh")
                 || request.getRequestURI().equals("/api/sms/send")
                 || request.getRequestURI().equals("/api/sms/verify")
-                || request.getRequestURI().contains("/api/items")){
+                || request.getRequestURI().contains("/api/items")
+                || request.getRequestURI().contains("/api/categories")){
             System.out.println("인증 안할래");
             chain.doFilter(request, response);
             return;

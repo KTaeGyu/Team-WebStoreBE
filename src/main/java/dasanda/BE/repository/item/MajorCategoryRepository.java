@@ -14,7 +14,7 @@ public class MajorCategoryRepository {
     private final EntityManager em;
 
     public List<MajorCategory> findAll(){
-        return em.createQuery("select mc form MajorCategory mc", MajorCategory.class)
+        return em.createQuery("select mc from MajorCategory mc", MajorCategory.class)
                 .getResultList();
     }
 

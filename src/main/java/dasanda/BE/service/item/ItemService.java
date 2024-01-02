@@ -50,7 +50,6 @@ public class ItemService {
     // 세부 카테고리 상품 조회
     public List<Item> findItemBySubCategoryId(Long categoryId){
         SubCategory subCategory = subCategoryRepository.findOne(categoryId);
-
         return itemRepository.findByCategoryId(subCategory);
     }
 
