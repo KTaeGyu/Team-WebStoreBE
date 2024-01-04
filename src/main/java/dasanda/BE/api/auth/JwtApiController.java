@@ -25,9 +25,9 @@ public class JwtApiController {
 
             System.out.println(jwtToken);
 
-            String email = jwtService.refreshAccess(jwtToken);
+            Map<String, Object> memberInfoMap = jwtService.refreshAccess(jwtToken);
 
-            String jwtAccessToken = jwtService.access(email);
+            String jwtAccessToken = jwtService.access((Long) memberInfoMap.get("memberId"), (String) memberInfoMap.get("email"));
 
             return ResponseEntity.ok().body(Map.of("access_token", jwtAccessToken));
 

@@ -2,6 +2,7 @@ package dasanda.BE.domain.item;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import dasanda.BE.domain.Article;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -60,6 +61,10 @@ public class Item {
     @JsonManagedReference
     @OneToMany(mappedBy = "item")
     private List<ItemSeason> itemSeasons = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "item")
+    private List<Article> articles = new ArrayList<>();
 
     @Builder
     protected Item(String name, String imagePath, Long price, Integer discountRate, String gender,

@@ -63,8 +63,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("인증이 완료되었다");
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
 
-        String jwtAccessToken = jwtService.access(principalDetails.getMember().getEmail());
-        String jwtRefreshToken = jwtService.refresh(principalDetails.getMember().getEmail());
+        String jwtAccessToken = jwtService.access(principalDetails.getMember().getId(), principalDetails.getMember().getEmail());
+        String jwtRefreshToken = jwtService.refresh(principalDetails.getMember().getId(), principalDetails.getMember().getEmail());
 
 
         // JSON 응답을 생성
