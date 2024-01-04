@@ -31,11 +31,12 @@ public class JwtService {
     private long refreshTokenExpiration;
 
     @Transactional
-    public String access(String email){
+    public String access(Long memberId, String email){
 
         String jwtAccessToken = JWT.create()
                 .withSubject("access")
                 .withExpiresAt(new Date(System.currentTimeMillis() + accessTokenExpiration))
+                .withClaim("memberId", memberId)
                 .withClaim("email", email)
                 .sign(Algorithm.HMAC512(accessSecret));
 
@@ -43,11 +44,12 @@ public class JwtService {
     }
 
     @Transactional
-    public String refresh(String email){
+    public String refresh(Long memberId, String email){
 
         String jwtRefreshToken = JWT.create()
                 .withSubject("refresh")
                 .withExpiresAt(new Date(System.currentTimeMillis() + refreshTokenExpiration))
+                .withClaim("memberId", memberId)
                 .withClaim("email", email)
                 .sign(Algorithm.HMAC512(refreshSecret));
 
@@ -68,14 +70,31 @@ public class JwtService {
     }
 
     @Transactional
-    public String refreshAccess(String refreshToken){
+    public Map<String, Object> refreshAccess(String refreshToken){
 
         DecodedJWT decodedJWT = JWT.require(Algorithm.HMAC512(refreshSecret))
                 .build()
                 .verify(refreshToken);
+        Long memberId = decodedJWT.getClaim("memberId").asLong();
         String email = decodedJWT.getClaim("email").asString();
+        Map<String, Object> result = new HashMap<>();
+        result.put("memberId", memberId);
+        result.put("email", email);
 
-        return email;
+        return result;
+    }
+
+    @Transactional
+    public Long verifyMember(String accessToken){
+
+        Long memberId = JWT
+                .require(Algorithm.HMAC512(accessSecret))
+                .build()
+                .verify(accessToken)
+                .getClaim("memberId")
+                .asLong();
+
+        return memberId;
     }
 
 }
